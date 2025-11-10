@@ -1,24 +1,3 @@
-import os, subprocess, sys
-
-# ✅ Force install CPU-only torch if not present
-try:
-    import torch
-except ImportError:
-    print("Installing PyTorch CPU wheels...")
-    subprocess.check_call([
-        sys.executable, "-m", "pip", "install",
-        "torch==2.2.2+cpu", 
-        "torchvision==0.17.2+cpu", 
-        "torchaudio==2.2.2+cpu",
-        "--index-url", "https://download.pytorch.org/whl/cpu"
-    ])
-    import torch
-import streamlit as st
-import torch
-st.success(f"✅ Torch imported successfully — version {torch.__version__}")
-
-
-
 import streamlit as st
 import torch
 import cv2
@@ -34,10 +13,18 @@ st.set_page_config(page_title="Drone Object Detection", layout="wide")
 st.title("🚁 Drone Object Detection (Deformable DETR)")
 st.write("Detect objects in live drone videos using the pre-trained Transformer-based Deformable DETR model.")
 
+# -------------------- VERIFY TORCH INSTALLATION --------------------
+try:
+    st.info(f"✅ PyTorch version: {torch.__version__}")
+except Exception as e:
+    st.error(f"❌ PyTorch not found. Please ensure it is installed via the build hook.")
+    st.stop()
+
 # -------------------- LOAD MODEL --------------------
-@st.cache_resource
+@st.cache_resource(show_spinner=True)
 def load_model():
     device = "cuda" if torch.cuda.is_available() else "cpu"
+    st.info(f"Loading model on device: {device}")
     processor = AutoImageProcessor.from_pretrained("SenseTime/deformable-detr")
     model = DeformableDetrForObjectDetection.from_pretrained("SenseTime/deformable-detr").to(device)
     return processor, model, device
@@ -47,10 +34,10 @@ processor, model, device = load_model()
 # -------------------- SIDEBAR OPTIONS --------------------
 st.sidebar.header("⚙️ Options")
 input_type = st.sidebar.radio("Select Input Type", ["🎞️ Video Upload", "📷 Live Camera"])
-save_output = st.sidebar.radio("💾 Do you want to save detected video?", ["Yes", "No"])
+save_output = st.sidebar.radio("💾 Save Detected Video?", ["Yes", "No"])
 capture_images = st.sidebar.checkbox("📸 Capture Photos During Detection", value=True)
 
-# Create output directory
+# -------------------- OUTPUT DIRECTORIES --------------------
 output_dir = "drone_outputs"
 os.makedirs(output_dir, exist_ok=True)
 
@@ -89,13 +76,17 @@ if input_type == "🎞️ Video Upload":
             inputs = processor(images=image_pil, return_tensors="pt").to(device)
             outputs = model(**inputs)
             target_sizes = torch.tensor([image_pil.size[::-1]]).to(device)
-            results = processor.post_process_object_detection(outputs, target_sizes=target_sizes, threshold=0.6)[0]
+            results = processor.post_process_object_detection(
+                outputs, target_sizes=target_sizes, threshold=0.6
+            )[0]
 
             draw = ImageDraw.Draw(image_pil)
             for score, label, box in zip(results["scores"], results["labels"], results["boxes"]):
                 box = [round(i, 2) for i in box.tolist()]
                 draw.rectangle(box, outline="red", width=3)
-                draw.text((box[0], box[1]), f"{model.config.id2label[label.item()]} {round(score.item(), 2)}", fill="white")
+                draw.text((box[0], box[1]),
+                          f"{model.config.id2label[label.item()]} {round(score.item(), 2)}",
+                          fill="white")
 
             annotated = cv2.cvtColor(np.array(image_pil), cv2.COLOR_RGB2BGR)
             stframe.image(annotated, channels="BGR", use_container_width=True)
@@ -124,6 +115,3 @@ elif input_type == "📷 Live Camera":
     st.warning("⚠️ Live camera access is not supported in Streamlit Cloud. Please run locally to use webcam.")
     st.write("To run locally:")
     st.code("streamlit run app.py", language="bash")
-
-
-
