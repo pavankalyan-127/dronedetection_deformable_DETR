@@ -13,6 +13,9 @@ except ImportError:
         "--index-url", "https://download.pytorch.org/whl/cpu"
     ])
     import torch
+import streamlit as st
+import torch
+st.success(f"✅ Torch imported successfully — version {torch.__version__}")
 
 
 
@@ -121,5 +124,6 @@ elif input_type == "📷 Live Camera":
     st.warning("⚠️ Live camera access is not supported in Streamlit Cloud. Please run locally to use webcam.")
     st.write("To run locally:")
     st.code("streamlit run app.py", language="bash")
+
 
 
