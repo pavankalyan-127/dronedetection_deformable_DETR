@@ -1,9 +1,19 @@
-import streamlit as st
+import os, subprocess, sys
+
+# ✅ Force install CPU-only torch if not present
 try:
     import torch
-    st.success(f"✅ Torch imported successfully — version: {torch.__version__}")
-except Exception as e:
-    st.error(f"❌ Torch not found: {e}")
+except ImportError:
+    print("Installing PyTorch CPU wheels...")
+    subprocess.check_call([
+        sys.executable, "-m", "pip", "install",
+        "torch==2.2.2+cpu", 
+        "torchvision==0.17.2+cpu", 
+        "torchaudio==2.2.2+cpu",
+        "--index-url", "https://download.pytorch.org/whl/cpu"
+    ])
+    import torch
+
 
 
 import streamlit as st
@@ -111,4 +121,5 @@ elif input_type == "📷 Live Camera":
     st.warning("⚠️ Live camera access is not supported in Streamlit Cloud. Please run locally to use webcam.")
     st.write("To run locally:")
     st.code("streamlit run app.py", language="bash")
+
 
