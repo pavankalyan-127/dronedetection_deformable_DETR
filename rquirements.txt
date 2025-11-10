@@ -1,6 +1,8 @@
 streamlit==1.40.0
-torch==2.2.2
-torchvision==0.17.2
+--extra-index-url https://download.pytorch.org/whl/cu121
+torch==2.5.1+cu121
+torchvision==0.20.1+cu121
+torchaudio==2.5.1
 transformers==4.44.2
 opencv-python-headless==4.10.0.84
 Pillow==10.3.0
