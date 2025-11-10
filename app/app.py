@@ -1,4 +1,12 @@
 import streamlit as st
+try:
+    import torch
+    st.success(f"✅ Torch imported successfully — version: {torch.__version__}")
+except Exception as e:
+    st.error(f"❌ Torch not found: {e}")
+
+
+import streamlit as st
 import torch
 import cv2
 import numpy as np
@@ -103,3 +111,4 @@ elif input_type == "📷 Live Camera":
     st.warning("⚠️ Live camera access is not supported in Streamlit Cloud. Please run locally to use webcam.")
     st.write("To run locally:")
     st.code("streamlit run app.py", language="bash")
+
