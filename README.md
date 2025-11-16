@@ -57,5 +57,6 @@ The model uses:
 ![image alt](https://github.com/pavankalyan-127/dronedetection_deformable_DETR/blob/main/animals.jpg?raw=true)
 ![image alt](https://github.com/pavankalyan-127/dronedetection_deformable_DETR/blob/main/animals_2.2.jpg?raw=true)
 
-//https://raw.githubusercontent.com/pavankalyan-127/dronedetection_deformable_DETR/refs/heads/main/public.jfif)
+
+
 
