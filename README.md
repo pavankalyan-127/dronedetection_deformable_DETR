@@ -44,7 +44,7 @@ The model uses:
 
 ---
 
-## 🪁 Example Outputs
+##  Example Outputs
 
 ### **1️⃣ Public Road Scene**
 ![image alt](https://github.com/pavankalyan-127/dronedetection_deformable_DETR/blob/main/drone_1.jpg?raw=true)
@@ -56,6 +56,7 @@ The model uses:
 ### **3️⃣ Animals Dataset (COCO Animals)**
 ![image alt](https://github.com/pavankalyan-127/dronedetection_deformable_DETR/blob/main/animals.jpg?raw=true)
 ![image alt](https://github.com/pavankalyan-127/dronedetection_deformable_DETR/blob/main/animals_2.2.jpg?raw=true)
+
 
 
 
