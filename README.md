@@ -48,13 +48,14 @@ The model uses:
 
 ### **1️⃣ Public Road Scene**
 ![image alt](https://github.com/pavankalyan-127/dronedetection_deformable_DETR/blob/main/drone_1.jpg?raw=true)
-![image alt](https://raw.githubusercontent.com/pavankalyan-127/dronedetection_deformable_DETR/refs/heads/main/public.jfif)
+![image alt](https://raw.githubusercontent.com/pavankalyan-127/dronedetection_deformable_DETR/refs/heads/main/public_.jfif)
 ![image alt](https://github.com/pavankalyan-127/dronedetection_deformable_DETR/blob/main/public_2.2.jpg?raw=true)
 ### **2️⃣ Market Crowd Scene**
-![image alt](https://raw.githubusercontent.com/pavankalyan-127/dronedetection_deformable_DETR/refs/heads/main/public_.jfif)
+![image alt](https://raw.githubusercontent.com/pavankalyan-127/dronedetection_deformable_DETR/refs/heads/main/public.jfif)
 ![image alt](https://github.com/pavankalyan-127/dronedetection_deformable_DETR/blob/main/public_1.1.jpg?raw=true)
 ### **3️⃣ Animals Dataset (COCO Animals)**
 ![image alt](https://github.com/pavankalyan-127/dronedetection_deformable_DETR/blob/main/animals.jpg?raw=true)
 ![image alt](https://github.com/pavankalyan-127/dronedetection_deformable_DETR/blob/main/animals_2.2.jpg?raw=true)
 
+//https://raw.githubusercontent.com/pavankalyan-127/dronedetection_deformable_DETR/refs/heads/main/public.jfif)
 
